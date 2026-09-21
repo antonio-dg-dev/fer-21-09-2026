@@ -219,22 +219,22 @@ const CONFIG = {
   firma: '',                  // tu nombre o como te dice ella, ej. '— Tu Rey'
   etapas: [
     {
-      hora: 9, emoji: '🌱', nombre: 'semilla',
+      hora: 9, emoji: '🌱', nombre: '',
       titulo: 'Buenos días, Chiqui',
       mensaje: 'Hoy tal vez no te vea, pero aquí tienes un pequeño detalle que va a ir creciendo contigo durante el día. Por ahora es una semilla, pero dale tiempo.'
     },
     {
-      hora: 12, emoji: '🌿', nombre: 'brote',
+      hora: 12, emoji: '🌿', nombre: '',
       titulo: 'Ya salió algo',
       mensaje: '¡Esperar funciona, Chiqui! Regresa más tarde para ver cómo va cambiando este bebé.'
     },
     {
-      hora: 16, emoji: '🌼', nombre: 'botón',
+      hora: 16, emoji: '🌼', nombre: '',
       titulo: 'Ya casi',
       mensaje: '¡Ya se asoma un poco de amarillo! ¿Será por ser 21 de septiembre? 🤨'
     },
     {
-      hora: 20, emoji: '🌻', nombre: 'flor',
+      hora: 20, emoji: '🌻', nombre: '',
       titulo: 'Ya floreció',
       mensaje: 'Vi esta flor y pensé en ti porque es bonita. Bueno, en realidad a mí no me gusta, pero creí que te gustaría porque tú sí eres bonita.\n\nTe amo muchísimo, Chiqui. Quiero que seas parte de mi vida siempre.'
     }
@@ -402,7 +402,7 @@ function tick() {
     return;
   }
   const sig = new Date(Y, M - 1, D, CONFIG.etapas[e + 1].hora);
-  $('cuenta').textContent = `Sigue creciendo. Vuelve a las ${hora12(CONFIG.etapas[e + 1].hora)} (faltan ${formato(sig - now)})`;
+  $('cuenta').textContent = `Vuelve en ${formato(sig - now)}`;
 }
 
 estrellas();
