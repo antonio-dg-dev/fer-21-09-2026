@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para mi chiquita preciosa 🌻</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌻</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400;1,9..144,600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     Colores y cielos de cada etapa
+     ========================================================= */
+  :root {
+    --txt: #3a2811;
+    --card: rgba(255, 255, 255, .58);
+    --borde: rgba(255, 255, 255, .75);
+    --amarillo: #ffc81f;
+    --amarillo-osc: #f09a00;
+    --tallo: #3f8f3a;
+    --hoja: #5cb04f;
+  }
+  body.s0 { --cielo: linear-gradient(180deg, #b9ddf2 0%, #fbe6c6 65%, #ffd7a3 100%); }
+  body.s1 { --cielo: linear-gradient(180deg, #5fbdf2 0%, #b9e6ff 60%, #eef9ff 100%); }
+  body.s2 { --cielo: linear-gradient(180deg, #f39a6b 0%, #ffc585 50%, #ffe4b3 100%); }
+  body.s3 {
+    --cielo: linear-gradient(180deg, #0a1332 0%, #19245c 60%, #342f6c 100%);
+    --txt: #fdf3da;
+    --card: rgba(18, 22, 58, .55);
+    --borde: rgba(255, 255, 255, .16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    color: var(--txt);
+    background: var(--cielo, #fbe6c6);
+    background-attachment: fixed;
+    overflow-x: hidden;
+    transition: color 1s;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  main {
+    position: relative;
+    z-index: 2;
+    min-height: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 22px 20px 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  header { text-align: center; }
+  .para {
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.8rem;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+  .etapa-lbl { font-size: .9rem; opacity: .75; margin-top: 4px; }
+
+  /* =========================================================
+     Escena
+     ========================================================= */
+  .escena {
+    width: 100%;
+    height: 42vh;
+    min-height: 260px;
+    max-height: 400px;
+    display: flex;
+    justify-content: center;
+  }
+  .escena svg { height: 100%; width: auto; max-width: 100%; overflow: visible; }
+
+  .planta { transform-origin: 150px 370px; animation: mece 5s ease-in-out infinite; }
+  .tallo {
+    fill: none; stroke: var(--tallo); stroke-width: 7; stroke-linecap: round;
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+    animation: dibuja 1.6s ease-out forwards;
+  }
+  .hoja { fill: var(--hoja); transform-box: fill-box; transform: scale(0); animation: crece .8s ease-out forwards; }
+  .hoja.izq { transform-origin: 100% 60%; }
+  .hoja.der { transform-origin: 0% 60%; }
+  .capullo, .centro { transform-box: fill-box; transform-origin: 50% 100%; transform: scale(0); animation: crece .9s ease-out forwards; }
+  .centro { transform-origin: center; }
+  .petalo {
+    transform-box: fill-box; transform-origin: 50% 100%; transform: scale(0);
+    animation: crece .7s cubic-bezier(.3, 1.45, .5, 1) forwards;
+  }
+  .semilla { transform-box: fill-box; transform-origin: center; animation: late 2.6s ease-in-out infinite; }
+  body.s3 .cabeza { filter: drop-shadow(0 0 22px rgba(255, 205, 60, .5)); }
+
+  @keyframes dibuja { to { stroke-dashoffset: 0; } }
+  @keyframes crece  { to { transform: scale(1); } }
+  @keyframes mece   { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+  @keyframes late   { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
+  /* Sol / luna */
+  .astro {
+    position: fixed; z-index: 1; border-radius: 50%;
+    width: 74px; height: 74px;
+    transition: all 1.2s ease;
+    pointer-events: none;
+  }
+  body.s0 .astro { left: 10%; top: 24%; background: #ffd986; box-shadow: 0 0 60px 20px rgba(255, 210, 120, .55); }
+  body.s1 .astro { right: 12%; top: 7%;  background: #fff4a3; box-shadow: 0 0 70px 26px rgba(255, 244, 160, .7); }
+  body.s2 .astro { right: 8%;  top: 30%; width: 90px; height: 90px; background: #ff9b4f; box-shadow: 0 0 70px 24px rgba(255, 140, 70, .5); }
+  body.s3 .astro { right: 12%; top: 8%;  width: 58px; height: 58px; background: transparent; box-shadow: inset -15px 6px 0 0 #f3eed6; }
+
+  .estrellas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.5s; }
+  body.s3 .estrellas { opacity: 1; }
+  .estrella { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; animation: brilla 3s ease-in-out infinite; }
+  @keyframes brilla { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+
+  .lluvia { position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+  .cae {
+    position: absolute; top: -30px; width: 10px; height: 22px;
+    border-radius: 50%; background: var(--amarillo); opacity: .85;
+    animation: cae linear forwards;
+  }
+  @keyframes cae { to { transform: translate(var(--dx), 110vh) rotate(var(--rot)); } }
+
+  /* =========================================================
+     Mensaje
+     ========================================================= */
+  .tarjeta {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--borde);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 22px 22px 20px;
+  }
+  .tarjeta h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    font-size: 1.55rem;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .tarjeta p { font-size: 1.04rem; line-height: 1.65; }
+  .tarjeta p + p { margin-top: 10px; }
+  .firma { margin-top: 12px; font-family: 'Fraunces', Georgia, serif; font-style: italic; opacity: .85; }
+  .entra { animation: entra .6s ease both; }
+  @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* =========================================================
+     Línea del día
+     ========================================================= */
+  .linea { width: 100%; display: flex; position: relative; }
+  .linea::before {
+    content: ''; position: absolute; left: 12.5%; right: 12.5%; top: 21px; height: 2px;
+    background: var(--borde);
+  }
+  .paso {
+    flex: 1; position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    background: none; border: 0; color: inherit; font: inherit; cursor: pointer;
+    padding: 0 2px;
+  }
+  .paso .punto {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: grid; place-items: center; font-size: 1.15rem;
+    background: var(--card); border: 1px solid var(--borde);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .paso.visto .punto { background: var(--amarillo); border-color: var(--amarillo); transform: scale(1.12); box-shadow: 0 0 0 5px rgba(255, 200, 31, .3); }
+  .paso.bloq { cursor: default; opacity: .55; }
+  .paso small { font-size: .78rem; opacity: .8; }
+  .paso:focus-visible { outline: none; }
+  .paso:focus-visible .punto { outline: 3px solid var(--amarillo-osc); outline-offset: 3px; }
+
+  .cuenta { font-size: .92rem; opacity: .85; text-align: center; min-height: 1.3em; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; animation-delay: 0ms !important; }
+    .lluvia { display: none; }
+  }
+</style>
+</head>
+<body class="s0">
+  <div class="estrellas" id="estrellas" aria-hidden="true"></div>
+  <div class="astro" aria-hidden="true"></div>
+  <div class="lluvia" id="lluvia" aria-hidden="true"></div>
+
+  <main>
+    <header>
+      <div class="para" id="para"></div>
+      <div class="etapa-lbl" id="etapaLbl"></div>
+    </header>
+
+    <div class="escena" id="escena"></div>
+
+    <section class="tarjeta" id="tarjeta" aria-live="polite"></section>
+
+    <nav class="linea" id="linea" aria-label="Etapas del día"></nav>
+
+    <div class="cuenta" id="cuenta"></div>
+  </main>
+
+<script>
+/* =========================================================
+   ✏️ AQUÍ SE EDITA TODO
+   ========================================================= */
+const CONFIG = {
+  para: 'Para mi chiquita preciosa',
+  fecha: '2026-09-21',        // el día en que crece la flor
+  firma: '',                  // tu nombre o como te dice ella, ej. '— Tu Rey'
+  etapas: [
+    {
+      hora: 9, emoji: '🌱', nombre: 'semilla',
+      titulo: 'Buenos días, Chiqui',
+      mensaje: 'Hoy tal vez no te vea, pero aquí tienes un pequeño detalle que va a ir creciendo contigo durante el día. Por ahora es una semilla, pero dale tiempo.'
+    },
+    {
+      hora: 12, emoji: '🌿', nombre: 'brote',
+      titulo: 'Ya salió algo',
+      mensaje: '¡Esperar funciona, Chiqui! Regresa más tarde para ver cómo va cambiando este bebé.'
+    },
+    {
+      hora: 16, emoji: '🌼', nombre: 'botón',
+      titulo: 'Ya casi',
+      mensaje: '¡Ya se asoma un poco de amarillo! ¿Será por ser 21 de septiembre? 🤨'
+    },
+    {
+      hora: 20, emoji: '🌻', nombre: 'flor',
+      titulo: 'Ya floreció',
+      mensaje: 'Vi esta flor y pensé en ti porque es bonita. Bueno, en realidad a mí no me gusta, pero creí que te gustaría porque tú sí eres bonita.\n\nTe amo muchísimo, Chiqui. Quiero que seas parte de mi vida siempre.'
+    }
+  ]
+};
+
+/* =========================================================
+   Lógica
+   ========================================================= */
+const $ = id => document.getElementById(id);
+const [Y, M, D] = CONFIG.fecha.split('-').map(Number);
+
+const params = new URLSearchParams(location.search);
+const forzada = params.has('etapa')
+  ? Math.min(4, Math.max(1, parseInt(params.get('etapa'), 10) || 1)) - 1
+  : null;
+
+let actual = -1;
+let vista = 0;
+
+function etapaSegunHora(now) {
+  const finDia = new Date(Y, M - 1, D + 1);
+  if (now >= finDia) return 3;                 // después del día, la flor queda abierta
+  const inicio = new Date(Y, M - 1, D);
+  if (now < inicio) return 0;
+  let e = 0;
+  CONFIG.etapas.forEach((et, i) => { if (now.getHours() >= et.hora) e = i; });
+  return e;
+}
+
+function hora12(h) {
+  const suf = h >= 12 ? 'pm' : 'am';
+  return `${h % 12 || 12} ${suf}`;
+}
+
+function hoja(y, lado, s, delay) {
+  const k = lado === 'izq' ? -1 : 1;
+  const x = v => 150 + k * v * s;
+  const d = `M150 ${y} C ${x(20)} ${y - 22 * s}, ${x(46)} ${y - 20 * s}, ${x(54)} ${y - 8 * s} C ${x(38)} ${y + 6 * s}, ${x(14)} ${y + 6 * s}, 150 ${y} Z`;
+  return `<path class="hoja ${lado}" d="${d}" style="animation-delay:${delay}s"/>`;
+}
+
+function svgPlanta(e) {
+  const base = 368;
+  let h = `<svg viewBox="0 0 300 400" role="img" aria-label="Una flor en etapa de ${CONFIG.etapas[e].nombre}">`;
+  h += `<ellipse cx="150" cy="380" rx="132" ry="24" fill="#6b4423"/>`;
+  h += `<ellipse cx="150" cy="373" rx="118" ry="15" fill="#8a5a2e"/>`;
+  h += `<g class="planta">`;
+
+  if (e === 0) {
+    h += `<g class="semilla">
+      <ellipse cx="150" cy="362" rx="10" ry="14" fill="#5a3a1a" transform="rotate(-25 150 362)"/>
+      <ellipse cx="147" cy="357" rx="3" ry="6" fill="#8b6a45" transform="rotate(-25 147 357)"/>
+    </g>`;
+  } else {
+    const top = [0, 296, 200, 172][e];
+    const alto = base - top;
+    h += `<path class="tallo" pathLength="1" d="M150 ${base} C 142 ${base - alto * .35}, 160 ${base - alto * .7}, 150 ${top}"/>`;
+
+    if (e === 1) {
+      h += hoja(top, 'izq', .6, 1.2) + hoja(top, 'der', .6, 1.35);
+    } else if (e === 2) {
+      h += hoja(322, 'izq', 1, .9) + hoja(292, 'der', 1, 1.1) + hoja(250, 'izq', .8, 1.3);
+      h += `<g class="capullo" style="animation-delay:1.4s">
+        <ellipse cx="150" cy="176" rx="9" ry="15" fill="${'#ffc81f'}"/>
+        <path d="M150 204 C 128 200, 130 178, 142 170 C 146 182, 154 182, 158 170 C 170 178, 172 200, 150 204 Z" fill="#4f9c45"/>
+      </g>`;
+    } else {
+      h += hoja(330, 'izq', 1.1, .8) + hoja(302, 'der', 1.1, 1) + hoja(258, 'izq', .9, 1.2) + hoja(232, 'der', .9, 1.3);
+      h += `<g class="cabeza">`;
+      for (let i = 0; i < 20; i++) {
+        h += `<g transform="rotate(${i * 18} 150 150)"><ellipse class="petalo" cx="150" cy="110" rx="11" ry="30" fill="#ffc81f" style="animation-delay:${(1.6 + i * .04).toFixed(2)}s"/></g>`;
+      }
+      for (let i = 0; i < 20; i++) {
+        h += `<g transform="rotate(${i * 18 + 9} 150 150)"><ellipse class="petalo" cx="150" cy="118" rx="9" ry="24" fill="#f5a300" style="animation-delay:${(1.9 + i * .03).toFixed(2)}s"/></g>`;
+      }
+      h += `<g class="centro" style="animation-delay:1.45s"><circle cx="150" cy="150" r="30" fill="#5b3718"/><circle cx="150" cy="150" r="23" fill="#3f2410"/>`;
+      for (let i = 1; i < 60; i++) {
+        const a = i * 137.5 * Math.PI / 180, r = 2.9 * Math.sqrt(i);
+        h += `<circle cx="${(150 + r * Math.cos(a)).toFixed(1)}" cy="${(150 + r * Math.sin(a)).toFixed(1)}" r="1.3" fill="#8a5a28"/>`;
+      }
+      h += `</g></g>`;
+    }
+  }
+  h += `</g></svg>`;
+  return h;
+}
+
+function pintarPasos() {
+  $('linea').innerHTML = CONFIG.etapas.map((et, i) => {
+    const libre = i <= actual;
+    const cls = ['paso', libre ? '' : 'bloq', i === vista ? 'visto' : ''].join(' ');
+    return `<button class="${cls}" data-i="${i}" ${libre ? '' : 'disabled'}
+      aria-label="${libre ? 'Ver mensaje de la etapa ' + et.nombre : 'Se desbloquea a las ' + hora12(et.hora)}">
+      <span class="punto">${libre ? et.emoji : '🔒'}</span>
+      <small>${et.nombre[0].toUpperCase() + et.nombre.slice(1)}</small>
+    </button>`;
+  }).join('');
+  $('linea').querySelectorAll('.paso:not(.bloq)').forEach(b =>
+    b.addEventListener('click', () => mostrar(+b.dataset.i)));
+}
+
+function mostrar(i) {
+  vista = i;
+  const et = CONFIG.etapas[i];
+  const t = $('tarjeta');
+  t.classList.remove('entra'); void t.offsetWidth; t.classList.add('entra');
+  t.innerHTML = `<h1>${et.titulo}</h1>` + et.mensaje.split('\n\n').map(p => `<p>${p}</p>`).join('') +
+    (i === 3 && CONFIG.firma ? `<p class="firma">${CONFIG.firma}</p>` : '');
+  pintarPasos();
+}
+
+function lluvia() {
+  const cont = $('lluvia');
+  cont.innerHTML = '';
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'cae';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.setProperty('--dx', (Math.random() * 120 - 60) + 'px');
+    p.style.setProperty('--rot', (Math.random() * 720 - 360) + 'deg');
+    p.style.animationDuration = (5 + Math.random() * 5) + 's';
+    p.style.animationDelay = (2.6 + Math.random() * 4) + 's';
+    cont.appendChild(p);
+  }
+}
+
+function estrellas() {
+  const cont = $('estrellas');
+  let h = '';
+  for (let i = 0; i < 50; i++) {
+    h += `<div class="estrella" style="left:${Math.random() * 100}%;top:${Math.random() * 60}%;animation-delay:${(Math.random() * 3).toFixed(2)}s"></div>`;
+  }
+  cont.innerHTML = h;
+}
+
+function render(e) {
+  actual = e;
+  document.body.className = 's' + e;
+  $('para').textContent = CONFIG.para;
+  $('etapaLbl').textContent = `Etapa ${e + 1} de 4: ${CONFIG.etapas[e].nombre}`;
+  $('escena').innerHTML = svgPlanta(e);
+  mostrar(e);
+  if (e === 3) lluvia(); else $('lluvia').innerHTML = '';
+}
+
+function formato(ms) {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), seg = s % 60;
+  if (h > 0) return `${h} h ${String(m).padStart(2, '0')} min`;
+  if (m > 0) return `${m} min ${String(seg).padStart(2, '0')} s`;
+  return `${seg} s`;
+}
+
+function tick() {
+  if (forzada !== null) {
+    $('cuenta').textContent = `Vista previa de la etapa ${forzada + 1}`;
+    return;
+  }
+  const now = new Date();
+  const e = etapaSegunHora(now);
+  if (e !== actual) render(e);
+  if (e >= 3) {
+    $('cuenta').textContent = 'Ya floreció. Esta flor es tuya para siempre 💛';
+    return;
+  }
+  const sig = new Date(Y, M - 1, D, CONFIG.etapas[e + 1].hora);
+  $('cuenta').textContent = `Sigue creciendo. Vuelve a las ${hora12(CONFIG.etapas[e + 1].hora)} (faltan ${formato(sig - now)})`;
+}
+
+estrellas();
+render(forzada !== null ? forzada : etapaSegunHora(new Date()));
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
